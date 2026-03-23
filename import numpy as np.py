@@ -41,7 +41,7 @@ for i in range(Num_paquetes):
         continue
 
     tiempo_recepcion = time.time()
-    latencia.append(tiempo_recepcion - tiempo_envio)
+    latencias.append(tiempo_recepcion - tiempo_envio)
     paquetes_envidas.append(Tamano_paquete)
     paquetes_recibidos.append(Tamano_paquete)
 
@@ -53,7 +53,26 @@ total_recibidos = len(paquetes_recibidos)
 tasa_perdida = perdidos / Num_paquetes
 
 latencia_promedio = np.mean(latencias)
+# Througtput (bytes/segundo)
+throughput = (sum(paquetes_recibidos)/sum (latencias)) if latencias else 0
 
-throughput = (sum(paquetes_recibidos)/sum (latencia)) if latencias else 0
+"""
+Configutación de Resultados
+"""
 
+print("paquetes_envidas: {total_enviados}")
+print("paquetes_recibidos: {total_recibidos}")
+print("tasa_perdida: {tasa_perdida:.2f}")
+print("latencia_promedio {latencia_promedio}")
+print("Througtput: {Througtput:.2f} bytes/s ")
 
+"""
+Grafica de latencias
+"""
+
+plt.plot(latencias)
+plt.title("Latencia por paquete")
+plt.xlabel("paquetes")
+plt.ylabel("Latencia(s)")
+plt.grid()
+plt.show()
